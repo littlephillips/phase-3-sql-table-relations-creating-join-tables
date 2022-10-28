@@ -1,0 +1,42 @@
+Learn to distinguish between one-to-many and many-to-many relationships
+
+Understand how to build each type of relationship
+
+Understand what a join table is and how it functions
+
+Build a join table and query data from it
+
+
+One-To-Many Relationships
+  :: "has many"/"belongs to", relationship
+The one-to-many relationship is created through the use of foreign keys
+
+Join Tables and the Many-to-Many Relationship
+We want to create a many-to-many association between cats and owners,
+such that a cat can have many owners and an owner can have many cats
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

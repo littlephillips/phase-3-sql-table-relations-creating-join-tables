@@ -1,0 +1,103 @@
+create the pets_database.db file by running the following command:
+  :: sqlite3 pets_database.db
+
+Create the following two tables:
+
+Cats Table:
+
+CREATE TABLE cats (
+  id INTEGER PRIMARY KEY,
+  name TEXT,
+  age INTEGER,
+  breed TEXT
+);
+
+Owners Table:
+
+CREATE TABLE owners (
+  id INTEGER PRIMARY KEY,
+  name TEXT
+);
+
+Insert the following data:
+
+Insert Data:
+
+INSERT INTO owners (name) VALUES ("mugumogu");
+INSERT INTO owners (name) VALUES ("Sophie");
+INSERT INTO owners (name) VALUES ("Penny");
+INSERT INTO cats (name, age, breed) VALUES ("Maru", 3, "Scottish Fold");
+INSERT INTO cats (name, age, breed) VALUES ("Hana", 1, "Tabby");
+INSERT INTO cats (name, age, breed) VALUES ("Nona", 4, "Tortoiseshell");
+INSERT INTO cats (name, age, breed) VALUES ("Lil' Bub", 2, "perma-kitten");
+
+The cat_owners Join Table
+Creating the Table
+
+Execute the following SQL statement to create our join table:
+
+CREATE TABLE cat_owners (
+  cat_id INTEGER,
+  owner_id INTEGER
+);
+
+Inserting Data into the Join Table
+INSERT INTO cat_owners (cat_id, owner_id) VALUES (3, 2);
+INSERT INTO cat_owners (cat_id, owner_id) VALUES (3, 3);
+INSERT INTO cat_owners (cat_id, owner_id) VALUES (1, 2);
+
+Querying the Join Table
+Basic Queries
+
+
+Let's SELECT from our join table all of the owners who are associated to cat number 3.
+
+ SELECT cat_owners.owner_id
+ FROM cat_owners
+ WHERE cat_id = 3;
+
+Now let's SELECT all of the cats who are associated with owner number 2:
+
+SELECT cat_owners.cat_id
+FROM cat_owners
+WHERE owner_id = 2;
+
+
+Advanced Queries
+Execute the following query:
+ ::boiler-plate query that utilizes a JOIN statement to query a join table:
+
+SELECT column(s)
+FROM table_one
+INNER JOIN table_two
+ON table_one.column_name = table_two.column_name
+WHERE table_two.column_name = condition;
+
+
+
+
+
+SELECT owners.name
+FROM owners
+INNER JOIN cat_owners
+ON owners.id = cat_owners.owner_id WHERE cat_owners.cat_id = 3;
+
+Let's break down the above query:
+
+SELECT owners.name: Here, we declare the column data that we want to actually have returned to us.
+FROM owners: Here, we specify the table whose column we are querying.
+INNER JOIN cat_owners ON owners.id = cat_owners.owner_id: Here, we are joining the cat_owners table on the owners table. We are telling our query to look for owners whose id column matches up to the owner_id column in the cat_owners table.
+WHERE cat_owners.cat_id = 3;: Here, we are adding an additional condition to our query. We are telling our query to look at the cat_owners table rows where the value of the cat_id column is 3. Then, for those rows only, cross reference the owner_id column value with the id column in the owners table.
+
+
+We can also join our third table by expanding the query, again following the same pattern using primary and foreign keys:
+
+SELECT
+  cats.name AS cat_name,
+  owners.name AS owner_name
+FROM cats
+INNER JOIN cat_owners
+  ON cats.id = cat_owners.cat_id
+INNER JOIN owners
+  ON cat_owners.owner_id = owners.id;
+
